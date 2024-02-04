@@ -1,92 +1,71 @@
-import { Helmet } from '@modern-js/runtime/head';
-import './index.css';
+import {
+  IconButton,
+  useDisclosure,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  Divider,
+} from '@chakra-ui/react';
+import DevToolsIcon from '@heroicons/react/24/outline/ChevronLeftIcon';
+import { useRef } from 'react';
+import { DevToolsDrawer } from '@/components/DevToolsDrawer';
 
-const Index = () => (
-  <div className="container-box">
-    <Helmet>
-      <link
-        rel="icon"
-        type="image/x-icon"
-        href="https://lf3-static.bytednsdoc.com/obj/eden-cn/uhbfnupenuhf/favicon.ico"
+const Index = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = useRef<HTMLButtonElement>(null);
+  return (
+    <>
+      <IconButton
+        aria-label={'Open Developer Tools'}
+        size={'xs'}
+        variant={'outline'}
+        colorScheme={'brand'}
+        icon={<DevToolsIcon style={{ width: 24, height: 24 }} />}
+        height={'48px'}
+        marginTop={'-24px'}
+        position={'absolute'}
+        top={'50vh'}
+        right={0}
+        borderRadius={'xl'}
+        borderTopRightRadius={0}
+        borderBottomRightRadius={0}
+        ref={btnRef}
+        onClick={onOpen}
       />
-    </Helmet>
-    <main>
-      <div className="title">
-        Welcome to
-        <img
-          className="logo"
-          src="https://lf3-static.bytednsdoc.com/obj/eden-cn/zq-uylkvT/ljhwZthlaukjlkulzlp/modern-js-logo.svg"
-          alt="Modern.js Logo"
-        />
-        <p className="name">Modern.js</p>
-      </div>
-      <p className="description">
-        Get started by editing <code className="code">src/routes/page.tsx</code>
-      </p>
-      <div className="grid">
-        <a
-          href="https://modernjs.dev/guides/get-started/introduction.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="card"
+
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
+        <DrawerOverlay />
+        <DrawerContent
+          borderTopLeftRadius={'2xl'}
+          borderBottomLeftRadius={'2xl'}
         >
-          <h2>
-            Guide
-            <img
-              className="arrow-right"
-              src="https://lf3-static.bytednsdoc.com/obj/eden-cn/zq-uylkvT/ljhwZthlaukjlkulzlp/arrow-right.svg"
+          <DrawerHeader
+            color={'gray.800'}
+            display={'flex'}
+            alignItems={'center'}
+            justifyContent={'space-between'}
+            pr={3}
+          >
+            <span>Developer Tools</span>
+            <DrawerCloseButton
+              position={'initial'}
+              color={'gray.600'}
+              borderRadius={'lg'}
             />
-          </h2>
-          <p>Follow the guides to use all features of Modern.js.</p>
-        </a>
-        <a
-          href="https://modernjs.dev/tutorials/foundations/introduction.html"
-          target="_blank"
-          className="card"
-          rel="noreferrer"
-        >
-          <h2>
-            Tutorials
-            <img
-              className="arrow-right"
-              src="https://lf3-static.bytednsdoc.com/obj/eden-cn/zq-uylkvT/ljhwZthlaukjlkulzlp/arrow-right.svg"
-            />
-          </h2>
-          <p>Learn to use Modern.js to create your first application.</p>
-        </a>
-        <a
-          href="https://modernjs.dev/configure/app/usage.html"
-          target="_blank"
-          className="card"
-          rel="noreferrer"
-        >
-          <h2>
-            Config
-            <img
-              className="arrow-right"
-              src="https://lf3-static.bytednsdoc.com/obj/eden-cn/zq-uylkvT/ljhwZthlaukjlkulzlp/arrow-right.svg"
-            />
-          </h2>
-          <p>Find all configuration options provided by Modern.js.</p>
-        </a>
-        <a
-          href="https://github.com/web-infra-dev/modern.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="card"
-        >
-          <h2>
-            Github
-            <img
-              className="arrow-right"
-              src="https://lf3-static.bytednsdoc.com/obj/eden-cn/zq-uylkvT/ljhwZthlaukjlkulzlp/arrow-right.svg"
-            />
-          </h2>
-          <p>View the source code of Github, feel free to contribute.</p>
-        </a>
-      </div>
-    </main>
-  </div>
-);
+          </DrawerHeader>
+          <Divider />
+          <DevToolsDrawer />
+        </DrawerContent>
+      </Drawer>
+    </>
+  );
+};
 
 export default Index;
