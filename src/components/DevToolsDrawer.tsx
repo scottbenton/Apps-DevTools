@@ -10,6 +10,8 @@ import CloseIcon from "@heroicons/react/24/outline/XMarkIcon";
 import { Modules } from "./DrawerItems/Modules";
 import { ListItem } from "./ListItem";
 import { IconButton } from "./IconButton";
+import { useModules } from "../hooks/useModules";
+import { Tag } from "./Tag";
 
 enum DEV_TOOL_OPTIONS {
   REMOTE_MODULES = "remote_modules",
@@ -18,6 +20,9 @@ enum DEV_TOOL_OPTIONS {
 export function DevToolsDrawer() {
   const [openDevToolOption, setOpenDevToolOption] =
     useState<DEV_TOOL_OPTIONS>();
+
+  const { moduleOverrides } = useModules();
+  const numberOfOverrides = Object.keys(moduleOverrides).length;
 
   return (
     <ModalOverlay
@@ -76,6 +81,14 @@ export function DevToolsDrawer() {
                     id={DEV_TOOL_OPTIONS.REMOTE_MODULES}
                     label={"Remote Modules"}
                     description="Override deployed modules with locally running code"
+                    tertiary={
+                      numberOfOverrides > 0 ? (
+                        <Tag>
+                          {numberOfOverrides} Override
+                          {numberOfOverrides > 1 ? "s" : ""} Set
+                        </Tag>
+                      ) : undefined
+                    }
                   />
                 </ListBox>
               )}

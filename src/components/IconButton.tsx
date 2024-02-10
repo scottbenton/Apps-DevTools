@@ -5,7 +5,7 @@ import clsx from "clsx";
 type variants = "default" | "dark";
 
 const classNames: Record<variants, string> = {
-  default: "hover:bg-primary-100 text-gray-500 hover:text-primary-600",
+  default: "hover:bg-devtools-100 text-gray-500 hover:text-devtools-600",
   dark: "hover:bg-gray-800 text-white",
 };
 
@@ -23,7 +23,7 @@ export function IconButton(props: PropsWithChildren<IconButtonProps>) {
     <Button
       className={clsx(
         className,
-        "p-2 flex items-center justify-center rounded-lg focus:outline-none focus:ring-2 ring-primary-400 transition-colors duration-150 ease-in-out",
+        "p-2 flex items-center justify-center rounded-lg focus:outline-none focus:ring-2 ring-devtools-400 transition-colors duration-150 ease-in-out",
         classNames[variant]
       )}
       onPress={onPress}

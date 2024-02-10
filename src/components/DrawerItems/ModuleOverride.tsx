@@ -189,7 +189,7 @@ export function ModuleOverride(props: ModuleOverrideProps) {
             onPress={handleSave}
             isDisabled={!hasChanged}
             className={
-              "rounded-lg bg-primary-700 text-white hover:bg-primary-800 transition-colors duration-150 ease-in-out font-semibold px-4 py-3 disabled:bg-gray-300 disabled:text-gray-600"
+              "rounded-lg bg-devtools-700 text-white hover:bg-devtools-800 transition-colors duration-150 ease-in-out font-semibold px-4 py-3 disabled:bg-gray-300 disabled:text-gray-600"
             }
           >
             Save & Reload

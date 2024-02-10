@@ -4,6 +4,7 @@ import { useModules } from "../../hooks/useModules";
 import { ListItem } from "../ListItem";
 import { DrawerSubHeader } from "../DrawerSubHeader";
 import { ModuleOverride } from "./ModuleOverride";
+import { Tag } from "../Tag";
 
 export interface ModulesProps {
   close: () => void;
@@ -48,6 +49,11 @@ export function Modules(props: ModulesProps) {
             key={module.moduleKey}
             id={module.moduleKey}
             label={module.name}
+            tertiary={
+              moduleOverrides[module.moduleKey] ? (
+                <Tag>Override Set</Tag>
+              ) : undefined
+            }
           />
         ))}
       </ListBox>

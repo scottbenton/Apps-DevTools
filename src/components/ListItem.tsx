@@ -17,7 +17,7 @@ export function ListItem(props: ListItemProps) {
       textValue={label}
       id={id}
       className={
-        "px-6 py-4 flex items-center justify-between cursor-pointer hover:bg-primary-100 duration-150 transition-colors ease-in-out"
+        "px-6 py-4 flex items-center justify-between cursor-pointer hover:bg-devtools-100 duration-150 transition-colors ease-in-out"
       }
     >
       <div className={"flex flex-col"}>
@@ -29,7 +29,7 @@ export function ListItem(props: ListItemProps) {
             {description}
           </Text>
         )}
-        {tertiary}
+        {tertiary && <div className={"mt-1"}>{tertiary}</div>}
       </div>
       <ArrowRightIcon className={"w-6 h-6 text-gray-500 ml-2"} />
     </ListBoxItem>

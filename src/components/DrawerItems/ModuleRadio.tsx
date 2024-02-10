@@ -18,15 +18,15 @@ export function ModuleRadio(props: ModuleRadioProps) {
         value={value}
         className={"group flex cursor-pointer items-center px-4 py-4"}
       >
-        <div className="w-6 h-6 rounded-full border border-primary-600 border-solid flex items-center justify-center">
+        <div className="w-6 h-6 rounded-full border border-devtools-600 border-solid flex items-center justify-center">
           <div
             className={
-              "w-4 h-4 rounded-full group-hovered:bg-primary-200 group-selected:bg-primary-600 transition-colors ease-in-out duration-150"
+              "w-4 h-4 rounded-full group-hovered:bg-devtools-200 group-selected:bg-devtools-600 transition-colors ease-in-out duration-150"
             }
           />
         </div>
         <div className={"flex flex-col ml-4"}>
-          <span className={"text-lg font-semibold text-primary-700"}>
+          <span className={"text-lg font-semibold text-devtools-700"}>
             {label}
           </span>
           {secondaryText && (
