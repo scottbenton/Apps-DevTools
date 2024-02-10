@@ -2,7 +2,6 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 const Dotenv = require("dotenv-webpack");
 const deps = require("./package.json").dependencies;
-const { MFLiveReloadPlugin } = require("@module-federation/fmr");
 
 const PORT = 3001;
 const name = "dev_tools";
@@ -21,11 +20,18 @@ module.exports = (_, argv) => [
     },
 
     devServer: {
-      port: PORT,
-      historyApiFallback: true,
+      host: "localhost",
+      hot: false,
+      liveReload: true,
+      client: {
+        webSocketURL: `ws://localhost:${PORT}/ws`,
+      },
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
+      allowedHosts: "all",
+      port: PORT,
+      historyApiFallback: true,
     },
     module: {
       rules: [
@@ -68,15 +74,6 @@ module.exports = (_, argv) => [
           },
         },
       }),
-      ...(argv.mode === "development"
-        ? [
-            new MFLiveReloadPlugin({
-              port: PORT, // the port your app runs on
-              container: "scottbenton_micro_frontend_host", // the name of your app, must be unique
-              standalone: true, // false uses chrome extention
-            }),
-          ]
-        : []),
       new HtmlWebPackPlugin({
         template: "./src/index.html",
       }),
