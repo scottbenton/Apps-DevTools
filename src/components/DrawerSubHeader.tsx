@@ -1,39 +1,28 @@
-import { DrawerBody, IconButton, Text } from '@chakra-ui/react';
-import BackIcon from '@heroicons/react/20/solid/ChevronLeftIcon';
+import React from "react";
+import { IconButton } from "./IconButton";
+import { Heading } from "react-aria-components";
+import ArrowLeft from "@heroicons/react/24/solid/ChevronLeftIcon";
 
 export interface DrawerSubHeaderProps {
   label: string;
-  goBack?: () => void;
+  goBack: () => void;
 }
 
 export function DrawerSubHeader(props: DrawerSubHeaderProps) {
   const { label, goBack } = props;
 
   return (
-    <DrawerBody
-      flexGrow={0}
-      overflow={'initial'}
-      backgroundColor={'gray.700'}
-      color={'white'}
-      py={1}
-      display={'flex'}
-      alignItems={'center'}
-    >
-      {goBack && (
-        <IconButton
-          aria-label={'Back'}
-          colorScheme={'gray.700'}
-          _hover={{
-            backgroundColor: 'gray.800',
-          }}
-          variant={'ghost'}
-          icon={<BackIcon style={{ width: 20, height: 20 }} />}
-          onClick={goBack}
-        />
-      )}
-      <Text ml={1} fontSize={'lg'} fontWeight={'semibold'}>
+    <div className={"flex items-center px-6 py-2 bg-gray-700 text-white"}>
+      <IconButton label={"back"} onPress={goBack} variant={"dark"}>
+        <ArrowLeft className={"w-6 h-6"} role={"presentation"} />
+      </IconButton>
+      <Heading
+        id={"drawer-subheader-label"}
+        level={2}
+        className={"text-xl font-semibold ml-2"}
+      >
         {label}
-      </Text>
-    </DrawerBody>
+      </Heading>
+    </div>
   );
 }
