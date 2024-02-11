@@ -88,13 +88,13 @@ export function ModuleOverride(props: ModuleOverrideProps) {
     let newOverrides = { ...allOverrides };
 
     if (selectedModuleOverrideOption === MODULE_OVERRIDE_OPTIONS.NONE) {
-      delete newOverrides[module.moduleKey];
+      delete newOverrides[module.scope];
     } else if (selectedModuleOverrideOption === MODULE_OVERRIDE_OPTIONS.LOCAL) {
-      newOverrides[module.moduleKey] = `http://localhost:${localhostPort}`;
+      newOverrides[module.scope] = `http://localhost:${localhostPort}`;
     } else if (
       selectedModuleOverrideOption === MODULE_OVERRIDE_OPTIONS.CUSTOM
     ) {
-      newOverrides[module.moduleKey] = customUrl;
+      newOverrides[module.scope] = customUrl;
     }
 
     localStorage.setItem("module-overrides", JSON.stringify(newOverrides));

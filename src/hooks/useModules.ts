@@ -17,7 +17,7 @@ export function useModules() {
 
   useEffect(() => {
     try {
-      const parsedModules = JSON.parse(localStorage.getItem("modules") ?? "{}");
+      const parsedModules = JSON.parse(localStorage.getItem("modules") ?? "[]");
       const moduleMap: Record<string, IModule> = {};
       (parsedModules as IModule[]).map((module) => {
         moduleMap[module.scope] = module;
