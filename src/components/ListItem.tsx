@@ -31,7 +31,7 @@ export function ListItem(props: ListItemProps) {
         )}
         {tertiary && <div className={"mt-1"}>{tertiary}</div>}
       </div>
-      <ArrowRightIcon className={"w-6 h-6 text-gray-500 ml-2"} />
+      <ArrowRightIcon className={"w-6 h-6 text-gray-500 ml-2 flex-shrink-0"} />
     </ListBoxItem>
   );
 }

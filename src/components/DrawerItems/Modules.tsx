@@ -46,11 +46,12 @@ export function Modules(props: ModulesProps) {
       >
         {Object.values(modules).map((module) => (
           <ListItem
-            key={module.moduleKey}
-            id={module.moduleKey}
+            key={module.scope}
+            id={module.scope}
             label={module.name}
+            description={module.description}
             tertiary={
-              moduleOverrides[module.moduleKey] ? (
+              moduleOverrides[module.scope] ? (
                 <Tag>Override Set</Tag>
               ) : undefined
             }

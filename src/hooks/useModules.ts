@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 
 export interface IModule {
   name: string;
-  moduleKey: string;
-  windowKey: string;
+  description: string;
+  scope: string;
   defaultUrl: string;
 }
 
@@ -20,7 +20,7 @@ export function useModules() {
       const parsedModules = JSON.parse(localStorage.getItem("modules") ?? "{}");
       const moduleMap: Record<string, IModule> = {};
       (parsedModules as IModule[]).map((module) => {
-        moduleMap[module.moduleKey] = module;
+        moduleMap[module.scope] = module;
       });
       setModules(moduleMap);
     } catch {
