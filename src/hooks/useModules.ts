@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export interface IModule {
   name: string;
@@ -36,5 +36,19 @@ export function useModules() {
     }
   }, []);
 
-  return { modules, moduleOverrides };
+  const setModuleOverride = useCallback(
+    (key: string, url: string | undefined) => {
+      let newOverrides = { ...moduleOverrides };
+      if (url) {
+        newOverrides[key] = url;
+      } else {
+        delete newOverrides[key];
+      }
+      localStorage.setItem("module-overrides", JSON.stringify(newOverrides));
+      location.reload();
+    },
+    [moduleOverrides]
+  );
+
+  return { modules, moduleOverrides, setModuleOverride };
 }

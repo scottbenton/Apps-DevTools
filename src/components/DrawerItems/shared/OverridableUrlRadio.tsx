@@ -1,13 +1,13 @@
 import React, { ReactNode } from "react";
 import { Radio } from "react-aria-components";
 
-export interface ModuleRadioProps {
+export interface OverridableUrlRadioProps {
   value: string;
   label: string;
   secondaryText?: string;
   input?: ReactNode;
 }
-export function ModuleRadio(props: ModuleRadioProps) {
+export function OverridableUrlRadio(props: OverridableUrlRadioProps) {
   const { value, label, secondaryText, input } = props;
 
   return (

@@ -7,22 +7,14 @@ import {
   ModalOverlay,
 } from "react-aria-components";
 import CloseIcon from "@heroicons/react/24/outline/XMarkIcon";
-import { Modules } from "./DrawerItems/Modules";
-import { ListItem } from "./ListItem";
 import { IconButton } from "./IconButton";
-import { useModules } from "../hooks/useModules";
-import { Tag } from "./Tag";
+import { DrawerItems } from "./DrawerItems/DrawerItems.enum";
 
-enum DEV_TOOL_OPTIONS {
-  REMOTE_MODULES = "remote_modules",
-}
+import { Modules, ModuleListItem } from "./DrawerItems/modules";
+import { APIs, ApiListItem } from "./DrawerItems/apis";
 
 export function DevToolsDrawer() {
-  const [openDevToolOption, setOpenDevToolOption] =
-    useState<DEV_TOOL_OPTIONS>();
-
-  const { moduleOverrides } = useModules();
-  const numberOfOverrides = Object.keys(moduleOverrides).length;
+  const [openDevToolOption, setOpenDevToolOption] = useState<DrawerItems>();
 
   return (
     <ModalOverlay
@@ -71,29 +63,21 @@ export function DevToolsDrawer() {
                   onSelectionChange={(keys) => {
                     const array = Array.from(keys);
                     if (array.length > 0) {
-                      setOpenDevToolOption(array[0] as DEV_TOOL_OPTIONS);
+                      setOpenDevToolOption(array[0] as DrawerItems);
                     } else {
                       setOpenDevToolOption(undefined);
                     }
                   }}
                 >
-                  <ListItem
-                    id={DEV_TOOL_OPTIONS.REMOTE_MODULES}
-                    label={"Remote Modules"}
-                    description="Override deployed modules with locally running code"
-                    tertiary={
-                      numberOfOverrides > 0 ? (
-                        <Tag>
-                          {numberOfOverrides} Override
-                          {numberOfOverrides > 1 ? "s" : ""} Set
-                        </Tag>
-                      ) : undefined
-                    }
-                  />
+                  <ModuleListItem />
+                  <ApiListItem />
                 </ListBox>
               )}
-              {openDevToolOption === DEV_TOOL_OPTIONS.REMOTE_MODULES && (
+              {openDevToolOption === DrawerItems.MODULES && (
                 <Modules close={() => setOpenDevToolOption(undefined)} />
+              )}
+              {openDevToolOption === DrawerItems.APIS && (
+                <APIs close={() => setOpenDevToolOption(undefined)} />
               )}
             </>
           )}

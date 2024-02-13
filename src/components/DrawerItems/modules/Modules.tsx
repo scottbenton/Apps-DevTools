@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { ListBox } from "react-aria-components";
-import { useModules } from "../../hooks/useModules";
-import { ListItem } from "../ListItem";
-import { DrawerSubHeader } from "../DrawerSubHeader";
-import { ModuleOverride } from "./ModuleOverride";
-import { Tag } from "../Tag";
+import { useModules } from "../../../hooks/useModules";
+import { ListItem } from "../../ListItem";
+import { DrawerSubHeader } from "../../DrawerSubHeader";
+import { Tag } from "../../Tag";
+import { OverridableUrlForm } from "../shared/OverridableUrlForm";
 
 export interface ModulesProps {
   close: () => void;
@@ -13,17 +13,18 @@ export interface ModulesProps {
 export function Modules(props: ModulesProps) {
   const { close } = props;
 
-  const { modules, moduleOverrides } = useModules();
+  const { modules, moduleOverrides, setModuleOverride } = useModules();
 
   const [openModuleKey, setOpenModuleKey] = useState<string>();
 
   if (openModuleKey && modules[openModuleKey]) {
     return (
-      <ModuleOverride
-        allOverrides={moduleOverrides}
-        module={modules[openModuleKey]}
+      <OverridableUrlForm
+        label={modules[openModuleKey].name}
+        defaultUrl={modules[openModuleKey].defaultUrl}
         override={moduleOverrides[openModuleKey]}
         goBack={() => setOpenModuleKey(undefined)}
+        setOverride={(url) => setModuleOverride(openModuleKey, url)}
       />
     );
   }

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { IModule } from "../../hooks/useModules";
-import { DrawerSubHeader } from "../DrawerSubHeader";
+import { DrawerSubHeader } from "../../DrawerSubHeader";
 import {
   Button,
   Input,
@@ -9,28 +8,29 @@ import {
   RadioGroup,
   TextField,
 } from "react-aria-components";
-import { ModuleRadio } from "./ModuleRadio";
+import { OverridableUrlRadio } from "./OverridableUrlRadio";
 
-export interface ModuleOverrideProps {
-  module: IModule;
+export interface OverridableUrlFormProps {
+  label: string;
+  defaultUrl: string;
   override?: string;
-  allOverrides: Record<string, string>;
   goBack: () => void;
+  setOverride: (newUrl: string | undefined) => void;
 }
 
-enum MODULE_OVERRIDE_OPTIONS {
+enum OverrideOptions {
   NONE = "none",
   CUSTOM = "custom",
   LOCAL = "local",
 }
 
-function getDefaultModuleOverrideOption(override?: string) {
+function getDefaultUrlOverrideOption(override?: string) {
   if (!override) {
-    return MODULE_OVERRIDE_OPTIONS.NONE;
+    return OverrideOptions.NONE;
   } else if (override.includes("http://localhost:")) {
-    return MODULE_OVERRIDE_OPTIONS.LOCAL;
+    return OverrideOptions.LOCAL;
   } else {
-    return MODULE_OVERRIDE_OPTIONS.CUSTOM;
+    return OverrideOptions.CUSTOM;
   }
 }
 
@@ -52,15 +52,16 @@ function getInitialCustomUrl(override?: string) {
   return "";
 }
 
-export function ModuleOverride(props: ModuleOverrideProps) {
-  const { module, override, goBack, allOverrides } = props;
+export function OverridableUrlForm(props: OverridableUrlFormProps) {
+  const { label, defaultUrl, override, goBack, setOverride } = props;
 
-  const initialModuleOverrideOption = getDefaultModuleOverrideOption(override);
+  const initialOverrideOption = getDefaultUrlOverrideOption(override);
   const initialPort = getInitialLocalhostPort(override);
   const initialCustomUrl = getInitialCustomUrl(override);
 
-  const [selectedModuleOverrideOption, setSelectedModuleOverrideOption] =
-    useState(initialModuleOverrideOption);
+  const [selectedOverrideOption, setSelectedOverrideOption] = useState(
+    initialOverrideOption
+  );
 
   const [localhostPort, setLocalhostPort] = useState<number>(initialPort);
 
@@ -68,48 +69,44 @@ export function ModuleOverride(props: ModuleOverrideProps) {
 
   let hasChanged = false;
 
-  if (selectedModuleOverrideOption !== initialModuleOverrideOption) {
+  if (selectedOverrideOption !== initialOverrideOption) {
     hasChanged = true;
   }
   if (
-    selectedModuleOverrideOption === MODULE_OVERRIDE_OPTIONS.LOCAL &&
+    selectedOverrideOption === OverrideOptions.LOCAL &&
     initialPort !== localhostPort
   ) {
     hasChanged = true;
   }
   if (
-    selectedModuleOverrideOption === MODULE_OVERRIDE_OPTIONS.CUSTOM &&
+    selectedOverrideOption === OverrideOptions.CUSTOM &&
     initialCustomUrl !== customUrl
   ) {
     hasChanged = true;
   }
 
   const handleSave = () => {
-    let newOverrides = { ...allOverrides };
-
-    if (selectedModuleOverrideOption === MODULE_OVERRIDE_OPTIONS.NONE) {
-      delete newOverrides[module.scope];
-    } else if (selectedModuleOverrideOption === MODULE_OVERRIDE_OPTIONS.LOCAL) {
-      newOverrides[module.scope] = `http://localhost:${localhostPort}`;
-    } else if (
-      selectedModuleOverrideOption === MODULE_OVERRIDE_OPTIONS.CUSTOM
-    ) {
-      newOverrides[module.scope] = customUrl;
+    let newUrl: string | undefined;
+    if (selectedOverrideOption === OverrideOptions.NONE) {
+      newUrl = undefined;
+    } else if (selectedOverrideOption === OverrideOptions.LOCAL) {
+      newUrl = `http://localhost:${localhostPort}`;
+    } else if (selectedOverrideOption === OverrideOptions.CUSTOM) {
+      newUrl = customUrl;
     }
 
-    localStorage.setItem("module-overrides", JSON.stringify(newOverrides));
-    location.reload();
+    setOverride(newUrl);
   };
 
   return (
     <>
-      <DrawerSubHeader label={module.name} goBack={goBack} />
+      <DrawerSubHeader label={label} goBack={goBack} />
       <div className={"px-6"}>
         <RadioGroup
           className="flex flex-col space-y-4 w-full mt-4"
-          value={selectedModuleOverrideOption}
+          value={selectedOverrideOption}
           onChange={(option) =>
-            setSelectedModuleOverrideOption(option as MODULE_OVERRIDE_OPTIONS)
+            setSelectedOverrideOption(option as OverrideOptions)
           }
         >
           <Label
@@ -119,13 +116,13 @@ export function ModuleOverride(props: ModuleOverrideProps) {
           >
             Options
           </Label>
-          <ModuleRadio
-            value={MODULE_OVERRIDE_OPTIONS.NONE}
+          <OverridableUrlRadio
+            value={OverrideOptions.NONE}
             label={"None"}
-            secondaryText={module.defaultUrl}
+            secondaryText={defaultUrl}
           />
-          <ModuleRadio
-            value={MODULE_OVERRIDE_OPTIONS.LOCAL}
+          <OverridableUrlRadio
+            value={OverrideOptions.LOCAL}
             label={"Local"}
             input={
               <NumberField
@@ -134,9 +131,7 @@ export function ModuleOverride(props: ModuleOverrideProps) {
                   useGrouping: false,
                 }}
                 className={"flex flex-col"}
-                isDisabled={
-                  selectedModuleOverrideOption !== MODULE_OVERRIDE_OPTIONS.LOCAL
-                }
+                isDisabled={selectedOverrideOption !== OverrideOptions.LOCAL}
                 value={localhostPort}
                 onChange={setLocalhostPort}
               >
@@ -155,16 +150,13 @@ export function ModuleOverride(props: ModuleOverrideProps) {
               </NumberField>
             }
           />
-          <ModuleRadio
-            value={MODULE_OVERRIDE_OPTIONS.CUSTOM}
+          <OverridableUrlRadio
+            value={OverrideOptions.CUSTOM}
             label={"Custom"}
             input={
               <TextField
                 className={"flex flex-col"}
-                isDisabled={
-                  selectedModuleOverrideOption !==
-                  MODULE_OVERRIDE_OPTIONS.CUSTOM
-                }
+                isDisabled={selectedOverrideOption !== OverrideOptions.CUSTOM}
                 value={customUrl}
                 onChange={setCustomUrl}
               >
