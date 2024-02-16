@@ -5,6 +5,7 @@ import { DrawerSubHeader } from "../../DrawerSubHeader";
 import { Tag } from "../../Tag";
 import { useApis } from "../../../hooks/useApis";
 import { OverridableUrlForm } from "../shared/OverridableUrlForm";
+import { API } from "@scottbenton/apps-config";
 
 export interface APIsProps {
   close: () => void;
@@ -15,7 +16,7 @@ export function APIs(props: APIsProps) {
 
   const { apis, apiOverrides, setApiOverride } = useApis();
 
-  const [openApiKey, setOpenApiKey] = useState<string>();
+  const [openApiKey, setOpenApiKey] = useState<API>();
 
   if (openApiKey && apis[openApiKey]) {
     return (
@@ -38,7 +39,7 @@ export function APIs(props: APIsProps) {
         onSelectionChange={(set) => {
           const arr = Array.from(set);
           if (arr.length > 0) {
-            setOpenApiKey(arr[0] as string);
+            setOpenApiKey(arr[0] as API);
           } else {
             setOpenApiKey(undefined);
           }

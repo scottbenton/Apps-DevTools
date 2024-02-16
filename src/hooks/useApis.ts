@@ -1,56 +1,23 @@
+import {
+  API,
+  apis,
+  getAPIOverrides,
+  IAPIOverrides,
+  setAPIOverride,
+} from "@scottbenton/apps-config";
 import { useCallback, useEffect, useState } from "react";
 
-export interface IApi {
-  name: string;
-  description: string;
-  key: string;
-  defaultUrl: string;
-}
-
-export interface IApiOverrides {
-  [apiKey: string]: string;
-}
-
 export function useApis() {
-  const [apis, setApis] = useState<Record<string, IApi>>({});
-  const [apiOverrides, setApiOverrides] = useState<IApiOverrides>({});
+  const [apiOverrides, setApiOverrides] = useState<IAPIOverrides>({});
 
   useEffect(() => {
-    try {
-      const parsedApis = JSON.parse(
-        localStorage.getItem("default-apis") ?? "[]"
-      );
-      const apiMap: Record<string, IApi> = {};
-      (parsedApis as IApi[]).map((api) => {
-        apiMap[api.key] = api;
-      });
-      setApis(apiMap);
-    } catch {
-      console.error("Error loading apis from local storage.");
-    }
-    try {
-      const parsedApiOverrides = JSON.parse(
-        localStorage.getItem("api-overrides") ?? "{}"
-      );
-      setApiOverrides(parsedApiOverrides);
-    } catch {
-      console.error("Error loading api overrides from local storage.");
-    }
+    setApiOverrides(getAPIOverrides());
   }, []);
 
-  const setApiOverride = useCallback(
-    (key: string, url: string | undefined) => {
-      let newOverrides = { ...apiOverrides };
-      if (url) {
-        newOverrides[key] = url;
-      } else {
-        delete newOverrides[key];
-      }
-      localStorage.setItem("api-overrides", JSON.stringify(newOverrides));
-      location.reload();
-    },
-    [apiOverrides]
-  );
+  const handleSetApi = useCallback((key: API, url: string | undefined) => {
+    setAPIOverride(key, url);
+    location.reload();
+  }, []);
 
-  return { apis, apiOverrides, setApiOverride };
+  return { apis, apiOverrides, setApiOverride: handleSetApi };
 }

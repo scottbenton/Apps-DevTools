@@ -5,6 +5,7 @@ import { ListItem } from "../../ListItem";
 import { DrawerSubHeader } from "../../DrawerSubHeader";
 import { Tag } from "../../Tag";
 import { OverridableUrlForm } from "../shared/OverridableUrlForm";
+import { ModuleScope } from "@scottbenton/apps-config";
 
 export interface ModulesProps {
   close: () => void;
@@ -15,7 +16,7 @@ export function Modules(props: ModulesProps) {
 
   const { modules, moduleOverrides, setModuleOverride } = useModules();
 
-  const [openModuleKey, setOpenModuleKey] = useState<string>();
+  const [openModuleKey, setOpenModuleKey] = useState<ModuleScope>();
 
   if (openModuleKey && modules[openModuleKey]) {
     return (
@@ -38,7 +39,7 @@ export function Modules(props: ModulesProps) {
         onSelectionChange={(set) => {
           const arr = Array.from(set);
           if (arr.length > 0) {
-            setOpenModuleKey(arr[0] as string);
+            setOpenModuleKey(arr[0] as ModuleScope);
           } else {
             setOpenModuleKey(undefined);
           }

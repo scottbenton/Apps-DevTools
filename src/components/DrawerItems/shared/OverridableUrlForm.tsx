@@ -42,7 +42,7 @@ function getInitialLocalhostPort(override?: string) {
       return port;
     }
   }
-  return 3000;
+  return 3002;
 }
 
 function getInitialCustomUrl(override?: string) {
