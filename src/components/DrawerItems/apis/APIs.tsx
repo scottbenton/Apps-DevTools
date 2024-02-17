@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ListBox } from "react-aria-components";
 import { ListItem } from "../../ListItem";
 import { DrawerSubHeader } from "../../DrawerSubHeader";
@@ -34,7 +34,7 @@ export function APIs(props: APIsProps) {
     <>
       <DrawerSubHeader label={"Modules"} goBack={close} />
       <ListBox
-        aria-labelledby="drawer-subheader-label"
+        aria-labelledby='drawer-subheader-label'
         selectedKeys={openApiKey ? [openApiKey] : []}
         onSelectionChange={(set) => {
           const arr = Array.from(set);
@@ -44,7 +44,7 @@ export function APIs(props: APIsProps) {
             setOpenApiKey(undefined);
           }
         }}
-        selectionMode="single"
+        selectionMode='single'
       >
         {Object.values(apis).map((api) => (
           <ListItem

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Dialog,
   Heading,
@@ -44,7 +44,7 @@ export function DevToolsDrawer() {
         <Dialog className={"outline-none relative"}>
           {({ close }) => (
             <>
-              <div className="flex items-center justify-between px-6 py-4 border-b-gray-300 border-b border-solid">
+              <div className='flex items-center justify-between px-6 py-4 border-b-gray-300 border-b border-solid'>
                 <Heading
                   level={1}
                   className={"text-gray-800 font-semibold text-2xl"}
@@ -57,8 +57,8 @@ export function DevToolsDrawer() {
               </div>
               {openDevToolOption === undefined && (
                 <ListBox
-                  aria-label="Developer tools actions"
-                  selectionMode="single"
+                  aria-label='Developer tools actions'
+                  selectionMode='single'
                   selectedKeys={openDevToolOption ? [openDevToolOption] : []}
                   onSelectionChange={(keys) => {
                     const array = Array.from(keys);

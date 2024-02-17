@@ -1,4 +1,3 @@
-import React from "react";
 import { ListItem } from "../../ListItem";
 import { DrawerItems } from "../DrawerItems.enum";
 import { Tag } from "../../Tag";
@@ -11,7 +10,7 @@ export function ApiListItem() {
     <ListItem
       id={DrawerItems.APIS}
       label={"APIs"}
-      description="Override deployed backend apis with locally running versions"
+      description='Override deployed backend apis with locally running versions'
       tertiary={
         numberOfOverrides > 0 ? (
           <Tag>

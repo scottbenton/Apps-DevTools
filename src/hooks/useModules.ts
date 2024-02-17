@@ -19,7 +19,7 @@ export function useModules() {
       setModuleOverride(scope, url);
       location.reload();
     },
-    [moduleOverrides]
+    []
   );
 
   return {

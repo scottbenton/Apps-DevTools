@@ -1,4 +1,3 @@
-import React from "react";
 import { IconButton } from "./IconButton";
 import { Heading } from "react-aria-components";
 import ArrowLeft from "@heroicons/react/24/solid/ChevronLeftIcon";

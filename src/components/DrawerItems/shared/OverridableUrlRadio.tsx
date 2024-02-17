@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { Radio } from "react-aria-components";
 
 export interface OverridableUrlRadioProps {
@@ -18,7 +18,7 @@ export function OverridableUrlRadio(props: OverridableUrlRadioProps) {
         value={value}
         className={"group flex cursor-pointer items-center px-4 py-4"}
       >
-        <div className="w-6 h-6 rounded-full border border-devtools-600 border-solid flex items-center justify-center">
+        <div className='w-6 h-6 rounded-full border border-devtools-600 border-solid flex items-center justify-center'>
           <div
             className={
               "w-4 h-4 rounded-full group-hovered:bg-devtools-200 group-selected:bg-devtools-600 transition-colors ease-in-out duration-150"
@@ -35,7 +35,7 @@ export function OverridableUrlRadio(props: OverridableUrlRadioProps) {
         </div>
       </Radio>
 
-      {input && <div className="px-4 pb-4">{input}</div>}
+      {input && <div className='px-4 pb-4'>{input}</div>}
     </div>
   );
 }

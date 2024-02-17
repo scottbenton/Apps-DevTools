@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import { Button } from "react-aria-components";
 import clsx from "clsx";
 

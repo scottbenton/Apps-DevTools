@@ -1,4 +1,3 @@
-import React from "react";
 import "./index.scss";
 import { DialogTrigger } from "react-aria-components";
 import { DevToolsDrawer } from "./components/DevToolsDrawer";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ListBox } from "react-aria-components";
 import { useModules } from "../../../hooks/useModules";
 import { ListItem } from "../../ListItem";
@@ -34,7 +34,7 @@ export function Modules(props: ModulesProps) {
     <>
       <DrawerSubHeader label={"Modules"} goBack={close} />
       <ListBox
-        aria-labelledby="drawer-subheader-label"
+        aria-labelledby='drawer-subheader-label'
         selectedKeys={openModuleKey ? [openModuleKey] : []}
         onSelectionChange={(set) => {
           const arr = Array.from(set);
@@ -44,7 +44,7 @@ export function Modules(props: ModulesProps) {
             setOpenModuleKey(undefined);
           }
         }}
-        selectionMode="single"
+        selectionMode='single'
       >
         {Object.values(modules).map((module) => (
           <ListItem

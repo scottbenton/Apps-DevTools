@@ -1,4 +1,3 @@
-import React from "react";
 import { ListItem } from "../../ListItem";
 import { DrawerItems } from "../DrawerItems.enum";
 import { useModules } from "../../../hooks/useModules";
@@ -11,7 +10,7 @@ export function ModuleListItem() {
     <ListItem
       id={DrawerItems.MODULES}
       label={"Frontend Modules"}
-      description="Override deployed modules with locally running code"
+      description='Override deployed modules with locally running code'
       tertiary={
         numberOfOverrides > 0 ? (
           <Tag>

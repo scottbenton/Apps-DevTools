@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { DrawerSubHeader } from "../../DrawerSubHeader";
 import {
   Button,
@@ -103,7 +103,7 @@ export function OverridableUrlForm(props: OverridableUrlFormProps) {
       <DrawerSubHeader label={label} goBack={goBack} />
       <div className={"px-6"}>
         <RadioGroup
-          className="flex flex-col space-y-4 w-full mt-4"
+          className='flex flex-col space-y-4 w-full mt-4'
           value={selectedOverrideOption}
           onChange={(option) =>
             setSelectedOverrideOption(option as OverrideOptions)

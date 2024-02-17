@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode } from "react";
 import { ListBoxItem, Text } from "react-aria-components";
 import ArrowRightIcon from "@heroicons/react/24/outline/ChevronRightIcon";
 
@@ -6,7 +6,7 @@ export interface ListItemProps {
   id: string;
   label: string;
   description?: string;
-  tertiary?: React.ReactNode;
+  tertiary?: ReactNode;
 }
 
 export function ListItem(props: ListItemProps) {
